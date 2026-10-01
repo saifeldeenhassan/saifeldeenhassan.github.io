@@ -1,34 +1,398 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>سيف الدين حسن</title>
-  <style>
-    body { font-family: Tahoma, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.7; }
-    header { text-align: center; padding: 40px 0; }
-    .project { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-    a { color: #0969da; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>أهلاً، أنا سيف الدين 👋</h1>
-    <p>اكتب هنا نبذة قصيرة عنك</p>
-  </header>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saif Eldeen Hassan | Portfolio</title>
+<meta name="description" content="Personal portfolio: about, experience, projects, and contact info.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <section>
-    <h2>مشاريعي</h2>
-    <div class="project">
-      <h3>اسم المشروع</h3>
-      <p>وصف قصير للمشروع.</p>
-      <a href="https://github.com/saifeldeenhassan">الكود</a>
+<style>
+  :root{
+    --bg-1:#06201a;      /* very dark green */
+    --bg-2:#0f3a2b;      /* forest green */
+    --bg-3:#2c4520;      /* olive green */
+    --bg-4:#4a5620;      /* golden olive */
+    --ink:#eef2e2;       /* main text */
+    --ink-soft:#bcc7a6;  /* secondary text */
+    --accent:#d3dc8f;    /* accent color */
+    --panel:rgba(6,32,26,.55);
+    --line:rgba(211,220,143,.18);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{
+    font-family:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    color:var(--ink);
+    line-height:1.7;
+    min-height:100vh;
+    background:linear-gradient(160deg,var(--bg-1) 0%,var(--bg-2) 35%,var(--bg-3) 70%,var(--bg-4) 100%);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  section{padding:72px 0 8px}
+  h2{font-size:1.9rem;font-weight:700;margin-bottom:28px;letter-spacing:-.01em}
+  h3{font-weight:600}
+
+  /* ---------- Navigation ---------- */
+  nav{position:sticky;top:0;z-index:20;background:rgba(6,32,26,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;gap:22px;align-items:center;height:56px;overflow-x:auto;white-space:nowrap}
+  nav .brand{font-weight:700;margin-inline-end:auto;color:var(--ink)}
+  nav a{color:var(--ink-soft);font-size:.95rem}
+  nav a:hover{color:var(--accent);text-decoration:none}
+
+  /* ---------- About ---------- */
+  .hero{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center;padding-top:64px}
+  .avatar{width:168px;height:168px;border-radius:50%;border:2px solid var(--accent);object-fit:cover;
+          background:linear-gradient(135deg,var(--bg-2),var(--bg-4));display:grid;place-items:center;
+          font-size:3.4rem;font-weight:700;color:var(--accent)}
+  .hero h1{font-size:2.8rem;line-height:1.15;font-weight:800;letter-spacing:-.02em}
+  .hero .role{color:var(--accent);font-size:1.15rem;margin:8px 0 14px}
+  .hero p{color:var(--ink-soft);max-width:60ch}
+  .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .skills span{border:1px solid var(--line);padding:3px 14px;border-radius:99px;font-size:.88rem;color:var(--ink)}
+
+  /* ---------- Experience ---------- */
+  .timeline{border-inline-start:2px solid var(--line);padding-inline-start:26px;display:grid;gap:30px}
+  .job{position:relative}
+  .job::before{content:"";position:absolute;inset-inline-start:-34px;top:9px;width:14px;height:14px;border-radius:50%;
+               background:var(--accent);box-shadow:0 0 0 4px rgba(211,220,143,.18)}
+  .job .period{color:var(--accent);font-size:.9rem}
+  .job h3{font-size:1.2rem}
+  .job .company{color:var(--ink-soft)}
+  .job p{margin-top:6px;color:var(--ink-soft);max-width:70ch}
+
+  /* ---------- Projects ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+  .filters button{font:inherit;cursor:pointer;color:var(--ink);background:transparent;border:1px solid var(--line);
+                  padding:5px 18px;border-radius:99px;transition:background .2s,color .2s}
+  .filters button:hover{background:rgba(211,220,143,.12)}
+  .filters button[aria-pressed="true"]{background:var(--accent);color:#14230f;border-color:var(--accent);font-weight:600}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+  .card[hidden]{display:none}
+  .media{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,var(--bg-2),var(--bg-4));overflow:hidden}
+  .media img,.media iframe,.media video{width:100%;height:100%;object-fit:cover;border:0;display:block}
+  .play{position:absolute;inset:0;display:grid;place-items:center;border:0;background:rgba(6,32,26,.25);cursor:pointer}
+  .play::after{content:"";width:60px;height:60px;border-radius:50%;background:var(--accent);box-shadow:0 4px 18px rgba(0,0,0,.4)}
+  .play::before{content:"";position:absolute;z-index:1;border-style:solid;border-width:10px 0 10px 17px;
+                border-color:transparent transparent transparent #14230f;margin-left:4px}
+  .card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .card .cat{font-size:.82rem;color:var(--accent)}
+  .card h3{font-size:1.08rem}
+  .card p{color:var(--ink-soft);font-size:.94rem;flex:1}
+  .card .go{margin-top:8px;font-weight:600;font-size:.94rem}
+
+  /* ---------- Carousel ---------- */
+  .carousel{position:relative}
+  .track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+  .slide{flex:0 0 min(340px,82%);scroll-snap-align:start;border-radius:var(--radius);overflow:hidden;
+         border:1px solid var(--line);background:var(--panel);display:block;color:var(--ink)}
+  .slide:hover{text-decoration:none;border-color:var(--accent)}
+  .slide .pic{aspect-ratio:4/3;background:linear-gradient(135deg,var(--bg-2),var(--bg-4));display:grid;place-items:center;
+              font-size:1.1rem;color:var(--accent);padding:14px;text-align:center}
+  .slide .pic img{width:100%;height:100%;object-fit:cover}
+  .slide .cap{padding:14px 16px}
+  .slide .cap strong{display:block}
+  .slide .cap span{color:var(--ink-soft);font-size:.9rem}
+  .arrows{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+  .arrows button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--panel);
+                 color:var(--ink);font-size:1.2rem;cursor:pointer}
+  .arrows button:hover{background:var(--accent);color:#14230f}
+
+  /* ---------- Contact ---------- */
+  .contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .contact a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+             padding:18px 20px;color:var(--ink)}
+  .contact a:hover{border-color:var(--accent);text-decoration:none}
+  .contact small{display:block;color:var(--ink-soft)}
+  .contact strong{font-weight:600;overflow-wrap:anywhere}
+
+  footer{margin-top:72px;padding:26px 0;border-top:1px solid var(--line);color:var(--ink-soft);text-align:center;font-size:.9rem}
+
+  @media (max-width:640px){
+    .hero{grid-template-columns:1fr;text-align:center;justify-items:center}
+    .hero h1{font-size:2.1rem}
+    .skills{justify-content:center}
+    section{padding-top:56px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================================
+     EDIT HERE: the only place you need to change is the DATA object in the
+     script at the bottom. All site content (name, bio, experience,
+     projects, carousel, contact) lives there.
+     ===================================================================== -->
+
+<nav>
+  <div class="wrap">
+    <span class="brand" id="navName"></span>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#featured">Featured</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- 1) About me -->
+  <section id="about" class="hero" aria-label="About me"></section>
+
+  <!-- 2) Job experience -->
+  <section id="experience">
+    <h2>Work Experience</h2>
+    <div class="timeline" id="jobs"></div>
+  </section>
+
+  <!-- 3) Projects -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="filters" id="filters" role="group" aria-label="Filter projects by category"></div>
+    <div class="grid" id="projectGrid"></div>
+  </section>
+
+  <!-- 4) Carousel -->
+  <section id="featured">
+    <h2>Featured Work</h2>
+    <div class="carousel">
+      <div class="track" id="track" tabindex="0" aria-label="Featured projects"></div>
+      <div class="arrows">
+        <button id="prev" aria-label="Previous">&larr;</button>
+        <button id="next" aria-label="Next">&rarr;</button>
+      </div>
     </div>
   </section>
 
-  <section>
-    <h2>تواصل معايا</h2>
-    <a href="https://github.com/saifeldeenhassan">GitHub</a>
+  <!-- 5) Contact -->
+  <section id="contact">
+    <h2>Contact Info</h2>
+    <div class="contact" id="contactBox"></div>
   </section>
+</main>
+
+<footer><div class="wrap" id="footerText"></div></footer>
+
+<script>
+/* =====================================================================
+   DATA: edit only this part
+   ===================================================================== */
+const DATA = {
+
+  /* ---------- 1) About me ---------- */
+  about: {
+    name:  "Saif Eldeen Hassan",
+    role:  "Your job title here (e.g. Web Developer)",
+    photo: "",   // image link, or a file name uploaded to your repo like "me.jpg". If empty, the first letter of your name is shown
+    bio:   "Write a short intro of 2 to 4 sentences: who you are, what you do, and what you love to build.",
+    skills: ["HTML", "CSS", "JavaScript", "Git", "Figma"]   // add or remove freely
+  },
+
+  /* ---------- 2) Work experience (most recent first) ---------- */
+  experience: [
+    {
+      title:   "Job Title",
+      company: "Company Name",
+      period:  "2024 - Present",
+      desc:    "Describe your main responsibilities and achievements in this role."
+    },
+    {
+      title:   "Previous Job Title",
+      company: "Another Company",
+      period:  "2022 - 2024",
+      desc:    "A short description of the role and the results you delivered."
+    }
+    // To add a job: copy a whole { ... } block, add a comma after the one before it, and paste it here
+  ],
+
+  /* ---------- 3) Projects ----------
+     Each project has:
+       title       : the title
+       description : the description
+       category    : the category (new categories automatically get a filter button)
+       video       : a YouTube link (watch / youtu.be / embed) or a direct .mp4 link. Leave "" if there is no video
+       thumbnail   : (optional) cover image if there is no video
+       link        : project link (hyperlink)
+       linkText    : (optional) custom link text
+  */
+  projects: [
+    // ---- Category: Web ----
+    { title:"Web Project 1", category:"Web", description:"Short description of the first project and the tech used.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+    { title:"Web Project 2", category:"Web", description:"Short description of the second project.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+    { title:"Web Project 3", category:"Web", description:"Short description of the third project.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+
+    // ---- Category: Mobile ----
+    { title:"Mobile App 1", category:"Mobile", description:"Short description of the first app.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+    { title:"Mobile App 2", category:"Mobile", description:"Short description of the second app.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+    { title:"Mobile App 3", category:"Mobile", description:"Short description of the third app.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+
+    // ---- Category: Design ----
+    { title:"Design 1", category:"Design", description:"Short description of the first design project.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+    { title:"Design 2", category:"Design", description:"Short description of the second design project.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+    { title:"Design 3", category:"Design", description:"Short description of the third design project.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+
+    // ---- Category: Other ----
+    { title:"Other Project 1", category:"Other", description:"Short description of the project.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+    { title:"Other Project 2", category:"Other", description:"Short description of the project.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" },
+    { title:"Other Project 3", category:"Other", description:"Short description of the project.", video:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", link:"https://github.com/saifeldeenhassan" }
+
+    // To add a project: copy a whole { ... } line, add a comma after the line before it, and edit the details
+  ],
+
+  /* ---------- 4) Carousel (featured work) ----------
+       title : the title
+       text  : a short one-line description
+       image : (optional) image link or file name
+       link  : the link to the main project
+  */
+  featured: [
+    { title:"Main Project 1", text:"One-line description", image:"", link:"https://github.com/saifeldeenhassan" },
+    { title:"Main Project 2", text:"One-line description", image:"", link:"https://github.com/saifeldeenhassan" },
+    { title:"Main Project 3", text:"One-line description", image:"", link:"https://github.com/saifeldeenhassan" },
+    { title:"Main Project 4", text:"One-line description", image:"", link:"https://github.com/saifeldeenhassan" }
+  ],
+
+  /* ---------- 5) Contact info ---------- */
+  contact: {
+    phone:     "+201000000000",     // your number in international format
+    email:     "you@example.com",
+    instagram: "your_username"      // username without the @
+  }
+};
+
+/* =====================================================================
+   The code below builds the page from DATA. You do not need to edit it.
+   ===================================================================== */
+(function(){
+  const $ = s => document.querySelector(s);
+  function h(tag, props = {}, ...kids){
+    const e = document.createElement(tag);
+    for (const k in props){
+      if (k === "class") e.className = props[k];
+      else if (k === "text") e.textContent = props[k];
+      else e.setAttribute(k, props[k]);
+    }
+    kids.flat().forEach(c => { if (c) e.append(c); });
+    return e;
+  }
+  const ext = url => ({ target:"_blank", rel:"noopener noreferrer", href:url });
+
+  /* --- About --- */
+  const A = DATA.about;
+  document.title = A.name + " | Portfolio";
+  $("#navName").textContent = A.name;
+  const avatar = A.photo
+    ? h("img", { class:"avatar", src:A.photo, alt:A.name })
+    : h("div", { class:"avatar", "aria-hidden":"true", text:(A.name||"?").trim().charAt(0) });
+  $("#about").append(
+    avatar,
+    h("div", {},
+      h("h1", { text:A.name }),
+      h("div", { class:"role", text:A.role }),
+      h("p",  { text:A.bio }),
+      h("div", { class:"skills" }, (A.skills||[]).map(s => h("span", { text:s })))
+    )
+  );
+
+  /* --- Experience --- */
+  $("#jobs").append(...DATA.experience.map(j =>
+    h("div", { class:"job" },
+      h("div", { class:"period", text:j.period }),
+      h("h3",  { text:j.title }),
+      h("div", { class:"company", text:j.company }),
+      h("p",   { text:j.desc })
+    )
+  ));
+
+  /* --- Projects --- */
+  function youtubeId(u){
+    const m = u.match(/(?:youtu\.be\/|v=|\/embed\/|\/shorts\/)([\w-]{11})/);
+    return m ? m[1] : null;
+  }
+  function buildMedia(p){
+    const box = h("div", { class:"media" });
+    const v = (p.video || "").trim();
+    const yt = v && youtubeId(v);
+    if (yt){
+      box.append(h("img", { src:`https://img.youtube.com/vi/${yt}/hqdefault.jpg`, alt:p.title, loading:"lazy" }));
+      const btn = h("button", { class:"play", "aria-label":"Play video: " + p.title });
+      btn.addEventListener("click", () => {
+        box.replaceChildren(h("iframe", {
+          src:`https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`,
+          title:p.title, allow:"autoplay; encrypted-media; picture-in-picture", allowfullscreen:""
+        }));
+      });
+      box.append(btn);
+    } else if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(v)){
+      box.append(h("video", { src:v, controls:"", preload:"metadata", playsinline:"" }));
+    } else if (p.thumbnail){
+      box.append(h("img", { src:p.thumbnail, alt:p.title, loading:"lazy" }));
+    }
+    return box;
+  }
+  function buildCard(p){
+    return h("article", { class:"card", "data-cat":p.category },
+      buildMedia(p),
+      h("div", { class:"body" },
+        h("span", { class:"cat", text:p.category }),
+        h("h3",   { text:p.title }),
+        h("p",    { text:p.description }),
+        p.link ? h("a", { class:"go", ...ext(p.link), text:(p.linkText || "View project") + " \u2192" }) : null
+      )
+    );
+  }
+  const grid = $("#projectGrid");
+  grid.append(...DATA.projects.map(buildCard));
+
+  const cats = [...new Set(DATA.projects.map(p => p.category))];
+  const filters = $("#filters");
+  function setFilter(cat, btn){
+    filters.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b === btn));
+    grid.querySelectorAll(".card").forEach(c => { c.hidden = cat !== "All" && c.dataset.cat !== cat; });
+  }
+  ["All", ...cats].forEach((cat, i) => {
+    const b = h("button", { type:"button", "aria-pressed": i === 0, text:cat });
+    b.addEventListener("click", () => setFilter(cat, b));
+    filters.append(b);
+  });
+
+  /* --- Carousel --- */
+  $("#track").append(...DATA.featured.map(f =>
+    h("a", { class:"slide", ...ext(f.link) },
+      h("div", { class:"pic" }, f.image ? h("img", { src:f.image, alt:f.title, loading:"lazy" }) : f.title),
+      h("div", { class:"cap" }, h("strong", { text:f.title }), h("span", { text:f.text }))
+    )
+  ));
+  const track = $("#track");
+  const step = () => Math.max(track.clientWidth * 0.8, 260);
+  $("#prev").addEventListener("click", () => track.scrollBy({ left:-step(), behavior:"smooth" }));
+  $("#next").addEventListener("click", () => track.scrollBy({ left: step(), behavior:"smooth" }));
+
+  /* --- Contact --- */
+  const C = DATA.contact;
+  const ig = (C.instagram || "").replace(/^@/, "");
+  $("#contactBox").append(
+    h("a", { href:"tel:" + C.phone.replace(/\s/g,"") },
+      h("small", { text:"Phone" }), h("strong", { text:C.phone })),
+    h("a", { href:"mailto:" + C.email },
+      h("small", { text:"Email" }), h("strong", { text:C.email })),
+    h("a", { ...ext("https://instagram.com/" + ig) },
+      h("small", { text:"Instagram" }), h("strong", { text:"@" + ig }))
+  );
+
+  $("#footerText").textContent = "\u00A9 " + new Date().getFullYear() + " " + A.name;
+})();
+</script>
 </body>
 </html>
